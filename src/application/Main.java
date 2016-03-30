@@ -28,7 +28,6 @@ public class Main extends Application {
 		
 			time.setFont(Font.font("arial black", 70));
 			
-			
 			BorderPane root = new BorderPane();
 			root.setTop(addGridUpper(buttonPomodoro));
 			root.setBottom(addGridBottom());
@@ -61,6 +60,7 @@ public class Main extends Application {
 		grid.setVgap(20);
 	    grid.setPadding(new Insets(15, 12, 15, 12));
 	    
+	    //Pomodoro button(25min)
 	    buttonPomodoro = new Button("Pomodoro");
         buttonPomodoro.setPrefSize(200, 60);
         grid.add(buttonPomodoro, 0, 0);
@@ -68,13 +68,12 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				running = true;
-				if(running)
-					runTimer(25);
+				
 			}
         	
         });
- 
+        
+        //Short break button(5min)
         Button buttonShortBreak = new Button("Short Break");
         buttonShortBreak.setPrefSize(200, 60);
         grid.add(buttonShortBreak, 1, 0);
@@ -87,6 +86,7 @@ public class Main extends Application {
 			}
 		});
         
+        //Long break(10min)
         Button buttonLongBreak = new Button("Long Break");
         buttonLongBreak.setPrefSize(200, 60);
         grid.add(buttonLongBreak, 2, 0);
@@ -110,6 +110,7 @@ public class Main extends Application {
 		grid.setVgap(20);
 	    grid.setPadding(new Insets(15, 12, 15, 12));
 	    
+	    //Start button
 	    Button startBtn = new Button("Start");
         startBtn.setPrefSize(200, 60);
         grid.add(startBtn, 0, 0);
@@ -117,11 +118,12 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 		});
  
+        //Stop button
         Button stopBtn = new Button("Stop");
         stopBtn.setPrefSize(200, 60);
         grid.add(stopBtn, 1, 0);
@@ -133,6 +135,7 @@ public class Main extends Application {
 			}
 		});
         
+        //Reset Button
         Button resetBtn = new Button("Reset");
         resetBtn.setPrefSize(200, 60);
         grid.add(resetBtn, 2, 0);
@@ -140,7 +143,7 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 		});

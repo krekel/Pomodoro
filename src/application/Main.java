@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -18,15 +19,15 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
-	public Button buttonPomodoro;
-	Text time = new Text();
-	//MyTimer countDown = new MyTimer();
-	private boolean running;
+	Button buttonPomodoro;
+	Label time = new Label();
+	CountDown countDown = new CountDown();
+	//private boolean running;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
-			time.setFont(Font.font("arial black", 70));
+			time = countDown.getLabel();
 			
 			BorderPane root = new BorderPane();
 			root.setTop(addGridUpper(buttonPomodoro));
@@ -68,7 +69,7 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+				countDown.runTimer();
 			}
         	
         });
@@ -151,28 +152,28 @@ public class Main extends Application {
 		return grid;
 	}
 	
-	public void runTimer(int mins){
-		  final Timer timer = new Timer();
-	        timer.scheduleAtFixedRate(new TimerTask() {
-	            int sec = 00;
-	            int min = mins;
-	            
-	            public void run() {
-	            	
-	            	time.setText(String.format("%02d:%02d", min , sec));
-	                System.out.printf("%02d:%02d", min , sec);
-	                System.out.println();
-	                
-	                if (min < 0 && sec < 0)
-	                    timer.cancel();
-	                else if( min > 0 && sec == 00){
-	                	sec = 59;
-	                	min--;
-	                }
-	                else if(sec > 0)
-	                	sec--;
-	            }
-	        }, 0, 1000);
-	    }
+//	public void runTimer(int mins){
+//		  final Timer timer = new Timer();
+//	        timer.scheduleAtFixedRate(new TimerTask() {
+//	            int sec = 00;
+//	            int min = mins;
+//	            
+//	            public void run() {
+//	            	
+//	            	time.setText(String.format("%02d:%02d", min , sec));
+//	                System.out.printf("%02d:%02d", min , sec);
+//	                System.out.println();
+//	                
+//	                if (min < 0 && sec < 0)
+//	                    timer.cancel();
+//	                else if( min > 0 && sec == 00){
+//	                	sec = 59;
+//	                	min--;
+//	                }
+//	                else if(sec > 0)
+//	                	sec--;
+//	            }
+//	        }, 0, 1000);
+//	    }
 	
 }

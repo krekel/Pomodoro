@@ -15,11 +15,11 @@ public class CountDown extends Parent {
 	private int minutes;
 	private Timeline timeLine;
 	private AnimationTimer timer;
-	private Label text;
-	private int sec = 0;
+	private Label text = new Label();
+	private int sec;
 
 	public CountDown(){
-		
+		sec = 0;
 	}
 	
 	public CountDown(int minutes){
@@ -34,11 +34,14 @@ public class CountDown extends Parent {
 		return minutes;
 	}
 	
+	public Label getLabel(){
+		return text;
+	}
+	
 	
 	public void runTimer(){
-		int startTime = this.minutes;
 		
-		text = new Label(String.format("%02d:%02d", this.minutes , this.sec));
+		int startTime = getMin();
 		
 		timeLine = new Timeline();
 		timeLine.setCycleCount(timeLine.INDEFINITE);
@@ -52,18 +55,21 @@ public class CountDown extends Parent {
 				
 				minutes = startTime;
 				
+				text.setText(String.format("%02d:%02d", minutes, sec));
+				
 				 if (minutes < 0 && sec < 0)
 	                    timeLine.stop();
-	                else if( minutes > 0 && sec == 00){
+	             if( minutes > 0 && sec == 00){
 	                	sec = 59;
 	                	minutes--;
 	                }
-	                else if(sec > 0)
+	             if(sec > 0)
 	                	sec--;			
 			} //handle()
 			
 		});
-		
+		timeLine.getKeyFrames().add(timer);
+		timeLine.playFromStart();
 	}
 
 }//

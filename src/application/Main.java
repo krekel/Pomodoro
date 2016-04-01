@@ -151,28 +151,4 @@ public class Main extends Application {
 		return grid;
 	}
 	
-//	public void runTimer(int mins){
-//		  final Timer timer = new Timer();
-//	        timer.scheduleAtFixedRate(new TimerTask() {
-//	            int sec = 00;
-//	            int min = mins;
-//	            
-//	            public void run() {
-//	            	
-//	            	time.setText(String.format("%02d:%02d", min , sec));
-//	                System.out.printf("%02d:%02d", min , sec);
-//	                System.out.println();
-//	                
-//	                if (min < 0 && sec < 0)
-//	                    timer.cancel();
-//	                else if( min > 0 && sec == 00){
-//	                	sec = 59;
-//	                	min--;
-//	                }
-//	                else if(sec > 0)
-//	                	sec--;
-//	            }
-//	        }, 0, 1000);
-//	    }
-	
 }

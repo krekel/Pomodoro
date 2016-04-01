@@ -3,6 +3,8 @@ package application;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.omg.PortableServer.POAManagerOperations;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,22 +21,21 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
-	Button buttonPomodoro;
+	
 	Label time = new Label();
 	CountDown countDown = new CountDown();
-	//private boolean running;
 	
 	@Override
 	public void start(Stage primaryStage) {
-		
+			
 			time = countDown.getLabel();
 			
 			BorderPane root = new BorderPane();
-			root.setTop(addGridUpper(buttonPomodoro));
+			root.setTop(addGridUpper());
 			root.setBottom(addGridBottom());
 			root.setCenter(time);
 			
-			Scene scene = new Scene(root,600,500);
+			Scene scene = new Scene(root,500,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Pomodoro Timer");
 			primaryStage.setResizable(false);
@@ -54,7 +55,7 @@ public class Main extends Application {
 		launch(args);
 	}
 	
-	public GridPane addGridUpper(Button buttonPomodoro){
+	public GridPane addGridUpper(){
 		
 		GridPane grid = new GridPane();
 		grid.setHgap(20);
@@ -62,14 +63,14 @@ public class Main extends Application {
 	    grid.setPadding(new Insets(15, 12, 15, 12));
 	    
 	    //Pomodoro button(25min)
-	    buttonPomodoro = new Button("Pomodoro");
+	    Button buttonPomodoro = new Button("Pomodoro");
         buttonPomodoro.setPrefSize(200, 60);
         grid.add(buttonPomodoro, 0, 0);
         buttonPomodoro.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
 			public void handle(ActionEvent event) {
-				countDown.runTimer();
+				countDown.runTimer(1);
 			}
         	
         });
@@ -82,8 +83,7 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-		
-				
+				countDown.runTimer(countDown.SHORT);
 			}
 		});
         
@@ -95,8 +95,7 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-					
-				
+				countDown.runTimer(countDown.LONG);
 			}
 		});
 	    

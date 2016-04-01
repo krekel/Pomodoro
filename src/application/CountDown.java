@@ -1,5 +1,7 @@
 package application;
 
+import java.awt.Toolkit;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,6 +14,11 @@ import javafx.util.Duration;
 
 public class CountDown extends Parent {
 	
+	public static final int POMODORO = 25;
+	public static final int SHORT = 5;
+	public static final int LONG = 10;
+	
+	private int startTime;
 	private int minutes;
 	private Timeline timeLine;
 	private AnimationTimer timer;
@@ -22,49 +29,35 @@ public class CountDown extends Parent {
 		sec = 0;
 	}
 	
-	public CountDown(int minutes){
-		this.minutes = minutes;
-	}
-	
-	public void setMin(int minutes){
-		this.minutes = minutes;
-	}
-	
-	public int getMin(){
-		return minutes;
-	}
-	
 	public Label getLabel(){
 		return text;
 	}
 	
-	
-	public void runTimer(){
+	public void runTimer(int min){
 		
-		int startTime = getMin();
+		minutes = min;
 		
 		timeLine = new Timeline();
 		timeLine.setCycleCount(timeLine.INDEFINITE);
 		KeyFrame timer = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-				if (timeLine != null) {
-		            timeLine.stop();
-		        }
-				
-				minutes = startTime;
 				
 				text.setText(String.format("%02d:%02d", minutes, sec));
 				
-				 if (minutes < 0 && sec < 0)
-	                    timeLine.stop();
-	             if( minutes > 0 && sec == 00){
-	                	sec = 59;
+				 if (minutes == 0 && sec == 0){
+					 Toolkit.getDefaultToolkit().beep();
+					 timeLine.stop();
+				 }
+	                    
+				 else if( minutes > 0 && sec == 00){
 	                	minutes--;
+	                	sec = 59;
+	                	
 	                }
-	             if(sec > 0)
-	                	sec--;			
+				 else if(sec > 0)
+	                	sec--;
+				 
 			} //handle()
 			
 		});

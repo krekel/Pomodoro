@@ -1,5 +1,10 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 .label{
-	-fx-font-family: "arial-black";
-	-fx-font-size: 70pt;
+	-fx-font-family: "Arial Black";
+	-fx-font-size: 50pt;
+}
+
+.button{
+	-fx-font-family: "Arial Black";
+	-fx-font-size: 12pt;
 }

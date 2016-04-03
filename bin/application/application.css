@@ -8,3 +8,7 @@
 	-fx-font-family: "Arial Black";
 	-fx-font-size: 12pt;
 }
+
+.root{
+	-fx-background-color:"#ffffe6";
+}

@@ -1,10 +1,5 @@
 package application;
 	
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.omg.PortableServer.POAManagerOperations;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,10 +8,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -24,6 +18,7 @@ public class Main extends Application {
 	
 	Label time = new Label();
 	CountDown countDown = new CountDown();
+	private boolean running = false;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -40,6 +35,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Pomodoro Timer");
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
+			//primaryStage.getIcons().add(new Image("icon/tomato.png"));
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 				@Override
 				public void handle(WindowEvent event) {
@@ -70,7 +66,16 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				countDown.runTimer(1);
+				if(!running){
+					countDown.runPomodoro();
+					running = true;
+				}
+				else if(running){
+					running = false;
+					countDown.getTimeLine().stop();
+					countDown.runPomodoro();
+					running = true;
+				}
 			}
         	
         });
@@ -83,7 +88,16 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				countDown.runTimer(countDown.SHORT);
+				if(!running){
+					countDown.runShort();
+					running = true;
+				}
+				else if(running){
+					running = false;
+					countDown.getTimeLine().stop();
+					countDown.runShort();
+					running = true;
+				}
 			}
 		});
         
@@ -95,7 +109,16 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				countDown.runTimer(countDown.LONG);
+				if(!running){
+					countDown.runLong();
+					running = true;
+				}
+				else if(running){
+					running = false;
+					countDown.getTimeLine().stop();
+					countDown.runLong();
+					running = true;
+				}
 			}
 		});
 	    
@@ -118,7 +141,7 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+				countDown.start();
 				
 			}
 		});
@@ -131,7 +154,7 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+				countDown.pause();
 			}
 		});
         
@@ -143,8 +166,7 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
-				
+				countDown.reset();
 			}
 		});
 	    

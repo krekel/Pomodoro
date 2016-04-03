@@ -35,7 +35,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Pomodoro Timer");
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
-			//primaryStage.getIcons().add(new Image("icon/tomato.png"));
+			primaryStage.getIcons().add(new Image("icon.png"));
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 				@Override
 				public void handle(WindowEvent event) {

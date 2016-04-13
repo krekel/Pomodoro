@@ -32,7 +32,7 @@ public class Main extends Application {
 			
 			Scene scene = new Scene(root,500,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setTitle("Pomodoro Timer");
+			primaryStage.setTitle("Tomate Timer");
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image("icon.png"));
@@ -67,12 +67,16 @@ public class Main extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				if(!running){
+					countDown.setCurrent(1);
+					countDown.setMinutes(25);
 					countDown.runPomodoro();
 					running = true;
 				}
 				else if(running){
 					running = false;
 					countDown.getTimeLine().stop();
+					countDown.setCurrent(1);
+					countDown.setMinutes(25);
 					countDown.runPomodoro();
 					running = true;
 				}
@@ -89,13 +93,17 @@ public class Main extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				if(!running){
-					countDown.runShort();
+					countDown.setCurrent(2);
+					countDown.setMinutes(5);
+					countDown.runPomodoro();
 					running = true;
 				}
 				else if(running){
 					running = false;
 					countDown.getTimeLine().stop();
-					countDown.runShort();
+					countDown.setCurrent(2);
+					countDown.setMinutes(5);
+					countDown.runPomodoro();
 					running = true;
 				}
 			}
@@ -110,13 +118,17 @@ public class Main extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				if(!running){
-					countDown.runLong();
+					countDown.setCurrent(3);
+					countDown.setMinutes(10);
+					countDown.runPomodoro();
 					running = true;
 				}
 				else if(running){
 					running = false;
 					countDown.getTimeLine().stop();
-					countDown.runLong();
+					countDown.setCurrent(3);
+					countDown.setMinutes(10);
+					countDown.runPomodoro();
 					running = true;
 				}
 			}

@@ -17,11 +17,8 @@ public class CountDown extends Parent {
 	private Timeline timeLine;
 	private AnimationTimer timer;
 	private Label text = new Label();
-	private int sec, curr;
-
-	public CountDown(){
-		sec = 0;
-	}
+	private int sec, min; 
+	private int curr;
 	
 	public Label getLabel(){
 		return text;
@@ -31,10 +28,25 @@ public class CountDown extends Parent {
 		return timeLine;
 	}
 	
+	public void setMinutes(int minutes){
+		this.minutes = minutes;
+	}
+	
+	public int getMinutes(){
+		return minutes;
+	}
+	
+	public void setCurrent(int curr){
+		this.curr = curr;
+	}
+	
+	public int getCurrent(){
+		return curr;
+	}
+	
 	public void runPomodoro(){
-		minutes = 25;
+		min = getMinutes();
 		sec = 0;
-		curr = 1;
 		
 		timeLine = new Timeline();
 		timeLine.setCycleCount(timeLine.INDEFINITE);
@@ -42,14 +54,14 @@ public class CountDown extends Parent {
 			@Override
 			public void handle(ActionEvent event) {
 				
-				text.setText(String.format("%02d:%02d", minutes, sec));
+				text.setText(String.format("%02d:%02d", min, sec));
 				
-				 if (minutes == 0 && sec == 0){
+				 if (min == 0 && sec == 0){
 					 Toolkit.getDefaultToolkit().beep();
 					 timeLine.stop();
 				 } 
-				 else if( minutes > 0 && sec == 0){
-	                	minutes--;
+				 else if( min > 0 && sec == 0){
+	                	min--;
 	                	sec = 59;
 	                }
 				 else if(sec > 0)
@@ -135,16 +147,16 @@ public class CountDown extends Parent {
 	public void reset(){
 		switch (curr) {
 		case 1:
-			timeLine.stop();
-			runPomodoro();
+			min = 25;
+			sec = 0;
 			break;
 		case 2:
-			timeLine.stop();
-			runShort();
+			min = 5;
+			sec = 0;
 			break;
 		case 3:
-			timeLine.stop();
-			runLong();
+			min = 10;
+			sec = 0;
 			break;
 		default:
 			break;

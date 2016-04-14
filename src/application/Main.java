@@ -18,7 +18,7 @@ public class Main extends Application {
 	
 	Label time = new Label();
 	CountDown countDown = new CountDown();
-	private boolean running = false;
+	private boolean running = countDown.isRunning();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -36,6 +36,9 @@ public class Main extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image("icon.png"));
+			
+			System.out.println(running);
+			
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
 				@Override
 				public void handle(WindowEvent event) {
@@ -66,19 +69,18 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if(!running){
+				if(!countDown.isRunning()){
 					countDown.setCurrent(1);
 					countDown.setMinutes(25);
 					countDown.runPomodoro();
-					running = true;
+					countDown.setRunning(true);
 				}
-				else if(running){
+				else if(countDown.isRunning()){
 					running = false;
-					countDown.getTimeLine().stop();
 					countDown.setCurrent(1);
+					countDown.setSec(0);
 					countDown.setMinutes(25);
-					countDown.runPomodoro();
-					running = true;
+					countDown.setRunning(true);
 				}
 			}
         	
@@ -92,19 +94,18 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if(!running){
+				if(!countDown.isRunning()){
 					countDown.setCurrent(2);
-					countDown.setMinutes(5);
+					countDown.setMinutes(1);
 					countDown.runPomodoro();
-					running = true;
+					countDown.setRunning(true);
 				}
-				else if(running){
+				else if(countDown.isRunning()){
 					running = false;
-					countDown.getTimeLine().stop();
 					countDown.setCurrent(2);
+					countDown.setSec(0);
 					countDown.setMinutes(5);
-					countDown.runPomodoro();
-					running = true;
+					countDown.setRunning(true);
 				}
 			}
 		});
@@ -117,18 +118,17 @@ public class Main extends Application {
 
 			@Override
 			public void handle(ActionEvent event) {
-				if(!running){
+				if(!countDown.isRunning()){
 					countDown.setCurrent(3);
 					countDown.setMinutes(10);
 					countDown.runPomodoro();
 					running = true;
 				}
-				else if(running){
+				else if(countDown.isRunning()){
 					running = false;
-					countDown.getTimeLine().stop();
 					countDown.setCurrent(3);
+					countDown.setSec(0);
 					countDown.setMinutes(10);
-					countDown.runPomodoro();
 					running = true;
 				}
 			}

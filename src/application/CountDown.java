@@ -17,8 +17,9 @@ public class CountDown extends Parent {
 	private Timeline timeLine;
 	private AnimationTimer timer;
 	private Label text = new Label();
-	private int sec, min; 
+	private int sec = 0; 
 	private int curr;
+	private boolean running = false;
 	
 	public Label getLabel(){
 		return text;
@@ -36,6 +37,14 @@ public class CountDown extends Parent {
 		return minutes;
 	}
 	
+	public void setSec(int sec){
+		this.sec = sec;
+	}
+	
+	public int getSec(){
+		return sec;
+	}
+	
 	public void setCurrent(int curr){
 		this.curr = curr;
 	}
@@ -44,9 +53,20 @@ public class CountDown extends Parent {
 		return curr;
 	}
 	
+	public void setRunning(boolean running){
+		this.running = running;
+	}
+	
+	public boolean isRunning(){
+		if(running)
+			return true;
+		else 
+			return false;
+	}
+	
 	public void runPomodoro(){
-		min = getMinutes();
-		sec = 0;
+		
+		running = true;
 		
 		timeLine = new Timeline();
 		timeLine.setCycleCount(timeLine.INDEFINITE);
@@ -54,14 +74,15 @@ public class CountDown extends Parent {
 			@Override
 			public void handle(ActionEvent event) {
 				
-				text.setText(String.format("%02d:%02d", min, sec));
+				text.setText(String.format("%02d:%02d", minutes, sec));
 				
-				 if (min == 0 && sec == 0){
+				 if (minutes == 0 && sec == 0){
+					 running = false;
 					 Toolkit.getDefaultToolkit().beep();
 					 timeLine.stop();
 				 } 
-				 else if( min > 0 && sec == 0){
-	                	min--;
+				 else if( minutes > 0 && sec == 0){
+	                	minutes--;
 	                	sec = 59;
 	                }
 				 else if(sec > 0)
@@ -145,17 +166,17 @@ public class CountDown extends Parent {
 	}
 	
 	public void reset(){
-		switch (curr) {
+		switch (getCurrent()) {
 		case 1:
-			min = 25;
+			minutes = 25;
 			sec = 0;
 			break;
 		case 2:
-			min = 5;
+			minutes = 5;
 			sec = 0;
 			break;
 		case 3:
-			min = 10;
+			minutes = 10;
 			sec = 0;
 			break;
 		default:
